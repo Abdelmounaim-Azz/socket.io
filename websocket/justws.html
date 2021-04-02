@@ -1,0 +1,11 @@
+<script>
+  let ws = new WebSocket("ws://localhost:5000");
+  console.log(ws);
+  ws.onopen = (event) => {
+    ws.send("yow it s both ways");
+  };
+  //pipe
+  ws.onmessage = (event) => {
+    console.log(event);
+  };
+</script>

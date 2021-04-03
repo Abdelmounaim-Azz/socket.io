@@ -1,21 +1,76 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
-<script>
-  const socket = io("http://localhost:5000");
-  socket.on("connect", () => {
-    console.log(socket.id);
-    console.log(socket.connected);
-  });
-  socket.on("msgFromServer", (data) => {
-    console.log(data);
-    socket.emit("msgToServer", "Thanks for the warm welcome.");
-  });
-  //Heart beat mechanism to determin whether we r connected
-  socket.on("ping", () => {
-    console.log("ping received from server");
-  });
-  socket.on("pong", (latency) => {
-    console.log(latency);
-    console.log("Pong sent to the srv");
-  });
-</script>
-<h1>Chat app here</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Mini chat app</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="mb-2">
+        <form id="msg-form">
+          <div>
+            <label for="message">Send Message</label><br />
+            <textarea
+              name="message"
+              id="msg-user"
+              cols="50"
+              rows="5"
+              placeholder="enter your message"
+            ></textarea>
+          </div>
+
+          <!-- Input submit -->
+          <input
+            id="btn-submit"
+            type="submit"
+            value="Send Message"
+            class="btn btn-primary"
+          />
+        </form>
+      </div>
+      <ul id="messages"></ul>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script>
+      var sanitizeHTML = function (str) {
+        var temp = document.createElement("li");
+        temp.textContent = str;
+        return temp.innerHTML;
+      };
+      const socket = io("http://localhost:5000");
+      socket.on("connect", () => {
+        console.log(socket.id);
+        console.log(socket.connected);
+        document
+          .getElementById("msg-form")
+          .addEventListener("submit", (event) => {
+            event.preventDefault();
+            const message = document.getElementById("msg-user").value;
+            socket.emit("newMsgToServer", { data: message });
+          });
+      });
+      socket.on("msgFromServer", (data) => {
+        console.log(data);
+        socket.emit("msgToServer", "Thanks for the warm welcome.");
+      });
+      socket.on("msgToclients", (msg) => {
+        console.log(msg);
+        document.getElementById("messages").innerHTML += `<li>${sanitizeHTML(
+          msg.data
+        )}</li>`;
+      });
+      //Heart beat mechanism to determin whether we r connected
+      // socket.on("ping", () => {
+      //   console.log("ping received from server");
+      // });
+      // socket.on("pong", (latency) => {
+      //   console.log(latency);
+      //   console.log("Pong sent to the srv");
+      // });
+    </script>
+  </body>
+</html>

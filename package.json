@@ -9,6 +9,7 @@
   "author": "Abdelmounaim Azziza",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "socket.io": "^2.1.1"
   }
 }

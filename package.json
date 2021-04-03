@@ -1,0 +1,16 @@
+{
+  "name": "socketio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "basics.js",
+  "scripts": {
+    "start": "node chat.js",
+    "dev": "nodemon chat.js"
+  },
+  "author": "Abdelmounaim Azziza",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.1.1"
+  }
+}

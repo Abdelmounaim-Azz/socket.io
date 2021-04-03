@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Mini chat app</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="mb-2">
+        <form id="msg-form">
+          <div>
+            <label for="message">Send Message</label><br />
+            <textarea
+              name="message"
+              id="msg-user"
+              cols="50"
+              rows="5"
+              placeholder="enter your message"
+            ></textarea>
+          </div>
+
+          <!-- Input submit -->
+          <input
+            id="btn-submit"
+            type="submit"
+            value="Send Message"
+            class="btn btn-primary"
+          />
+        </form>
+      </div>
+      <ul id="messages"></ul>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

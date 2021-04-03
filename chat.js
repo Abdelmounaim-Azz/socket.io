@@ -11,14 +11,13 @@ const io = socketio(server, {
 });
 io.of("/user").on("connection", (socket) => {
   console.log("someone connected to usernamespace");
+  io.of("/user").emit("user", "welcome to user channel");
 });
-io.on("connection", (socket) => {
+io.of("/").on("connection", (socket) => {
   socket.emit("msgFromServer", "Welcome to socket.io server");
   socket.on("msgToServer", (data) => {
     console.log(data);
   });
-  socket.on("newMsgToServer", (msg) => {
-    console.log(msg);
-    io.of("/").emit("msgToclients", { data: msg.data });
-  });
+  socket.join("room1");
+  socket.to("room1").emit("join", `${socket.id} has just joined room1`);
 });

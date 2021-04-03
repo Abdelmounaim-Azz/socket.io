@@ -5,7 +5,10 @@ const app = express();
 app.use(express.static(__dirname + "/public"));
 
 const server = app.listen(5000);
-const io = socketio(server);
+const io = socketio(server, {
+  path: "/socket.io",
+  serveClient: true,
+});
 io.on("connection", (socket) => {
   socket.emit("msgFromServer", "Welcome to socket.io server");
   socket.on("msgToServer", (data) => {

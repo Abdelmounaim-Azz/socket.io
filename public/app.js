@@ -5,6 +5,9 @@ var sanitizeHTML = function (str) {
 };
 const socket = io("http://localhost:5000");
 const socketUser = io("http://localhost:5000/user");
+socketUser.on("connect", (socket) => {
+  console.log(socket.id);
+});
 socket.on("connect", () => {
   console.log(socket.id);
   console.log(socket.connected);

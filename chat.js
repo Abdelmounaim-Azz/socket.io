@@ -9,6 +9,9 @@ const io = socketio(server, {
   path: "/socket.io",
   serveClient: true,
 });
+io.of("/user").on("connection", (socket) => {
+  console.log("someone connected to usernamespace");
+});
 io.on("connection", (socket) => {
   socket.emit("msgFromServer", "Welcome to socket.io server");
   socket.on("msgToServer", (data) => {

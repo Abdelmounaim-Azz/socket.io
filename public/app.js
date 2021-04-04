@@ -1,43 +1,37 @@
-// var sanitizeHTML = function (str) {
-//   var temp = document.createElement("li");
-//   temp.textContent = str;
-//   return temp.innerHTML;
-// };
 const socket = io("http://localhost:5000");
-const socketUser = io("http://localhost:5000/user");
-// socketUser.on("connect", () => {
-//   console.log(socketUser.id);
-// });
-socketUser.on("user", (msg) => {
-  console.log(msg);
+var sanitizeHTML = function (content) {
+  var temp = document.createElement("div");
+  temp.classList.add("namespace");
+  temp.textContent = content;
+  return temp.innerHTML;
+};
+// const socketAws = io("http://localhost:5000/aws");
+// const socketDocker = io("http://localhost:5000/docker");
+// const socketLinux = io("http://localhost:5000/linux");
+socket.on("nsHomies", (nsData) => {
+  const nsDiv = document.querySelector(".namespaces");
+  nsData.forEach((el) => {
+    nsDiv.innerHTML += `<div class="namespace" ns="${el.endpoint}" ><img class="w-60 h-40" src='${el.img}'/></div>`;
+  });
+  Array.from(document.getElementsByClassName("namespace")).forEach((el) => {
+    el.addEventListener("click", (e) => {
+      const nsEndpoint = el.getAttribute("ns");
+      console.log(nsEndpoint);
+    });
+  });
+  const nsSocket = io("http://localhost:5000/aws");
+  nsSocket.on("nsInfo", (nsRooms) => {
+    let rooms = document.querySelector(".room-list");
+    nsRooms.map((room) => {
+      let icon = room.privateRoom ? "lock" : "globe";
+      rooms.innerHTML += `<li>
+      <span class="glyphicon glyphicon-${icon}"></span>${room.roomTitle}
+    </li>`;
+    });
+  });
 });
-socket.on("join", (msg) => {
-  console.log(msg);
-});
-// socket.on("connect", () => {
-//   console.log(socket.id);
-//   console.log(socket.connected);
-// });
-socket.on("msgFromServer", (data) => {
-  console.log(data);
-  socket.emit("msgToServer", "Thanks for the warm welcome.");
-});
-document.getElementById("msg-form").addEventListener("submit", (event) => {
+document.getElementById("user-input").addEventListener("submit", (event) => {
   event.preventDefault();
-  const message = document.getElementById("msg-user").value;
+  const message = document.getElementById("user-message").value;
   socket.emit("newMsgToServer", { data: message });
 });
-// socket.on("msgToclients", (msg) => {
-//   console.log(msg);
-//   document.getElementById("messages").innerHTML += `<li>${sanitizeHTML(
-//     msg.data
-//   )}</li>`;
-// });
-//Heart beat mechanism to determin whether we r connected
-// socket.on("ping", () => {
-//   console.log("ping received from server");
-// });
-// socket.on("pong", (latency) => {
-//   console.log(latency);
-//   console.log("Pong sent to the srv");
-// });

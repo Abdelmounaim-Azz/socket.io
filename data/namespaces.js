@@ -6,26 +6,23 @@ const Room = require("../classes/Room");
 let namespaces = [];
 let awsNs = new Namespace(
   0,
+  "https://media.webteam.puppet.com/uploads/2019/10/Logo-AWS.jpg",
   "aws",
-  "https://miro.medium.com/max/1200/1*W02WEmR0_JeJXfLWN2zHwQ.png",
   "/aws"
 );
 let dockerNs = new Namespace(
   1,
+  "https://www.docker.com/sites/default/files/d8/styles/role_icon/public/2019-07/Moby-logo.png?itok=sYH_JEaJ",
   "docker",
-  "https://www.aldakur.net/wp-content/uploads/2017/03/docker-logo.png",
   "/docker"
 );
 let linuxNs = new Namespace(
   2,
+  "https://logo-logos.com/wp-content/uploads/2017/07/Linux_Logo_01.jpg",
   "linux",
-  "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png",
   "/linux"
 );
 
-namespaces.push(awsNs, dockerNs, linuxNs);
-
-// Make the main room and add it to rooms. it will ALWAYS be 0
 awsNs.addRoom(new Room(0, "Lambda", "aws"));
 awsNs.addRoom(new Room(1, "EC2", "aws"));
 awsNs.addRoom(new Room(2, "cloudFront", "aws"));
@@ -39,5 +36,5 @@ linuxNs.addRoom(new Room(0, "Debian", "linux"));
 linuxNs.addRoom(new Room(1, "Red Hat", "linux"));
 linuxNs.addRoom(new Room(2, "Ubuntu", "linux"));
 linuxNs.addRoom(new Room(3, "Mint", "linux"));
-
+namespaces.push(awsNs, dockerNs, linuxNs);
 module.exports = namespaces;

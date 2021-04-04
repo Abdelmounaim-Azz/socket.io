@@ -112,3 +112,10 @@ input {
   display: flex;
   align-items: stretch;
 }
+
+.w-60 {
+  width: 60px;
+}
+.h-40 {
+  height: 40px;
+}

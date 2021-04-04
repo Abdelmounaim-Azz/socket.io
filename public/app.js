@@ -24,9 +24,15 @@ socket.on("nsHomies", (nsData) => {
     let rooms = document.querySelector(".room-list");
     nsRooms.map((room) => {
       let icon = room.privateRoom ? "lock" : "globe";
-      rooms.innerHTML += `<li>
+      rooms.innerHTML += `<li class="room">
       <span class="glyphicon glyphicon-${icon}"></span>${room.roomTitle}
     </li>`;
+    });
+    let roomNodes = document.getElementsByClassName("room");
+    Array.from(roomNodes).map((el) => {
+      el.addEventListener("click", (e) => {
+        console.log("I have been just clicked", e.target.innerText);
+      });
     });
   });
 });

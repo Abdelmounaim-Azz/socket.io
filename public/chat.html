@@ -1,0 +1,120 @@
+<link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" type="text/css" href="./styles.css" />
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-1 namespaces">
+      <div class="namespace" ns="/aws">
+        <img
+          src="https://miro.medium.com/max/1200/1*W02WEmR0_JeJXfLWN2zHwQ.png"
+        />
+      </div>
+      <div class="namespace" ns="/docker">
+        <img
+          src="https://www.aldakur.net/wp-content/uploads/2017/03/docker-logo.png"
+        />
+      </div>
+      <div class="namespace" ns="/linux">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"
+        />
+      </div>
+    </div>
+    <div class="col-sm-2 rooms">
+      <h3>Rooms</h3>
+      <ul class="room-list">
+        <li onclick="joinRoom(1,2)">
+          <span class="glyphicon glyphicon-lock"></span>Main Room
+        </li>
+        <li onclick="joinRoom(2,1)">
+          <span class="glyphicon glyphicon-globe"></span>Meeting Room
+        </li>
+      </ul>
+    </div>
+    <div class="chat-panel col-sm-9">
+      <div class="room-header row col-6">
+        <div class="col-sm-3">
+          <span class="curr-room-text">Current Room</span>
+          <span class="curr-room-num-users"
+            >Users <span class="glyphicon glyphicon-user"></span
+          ></span>
+        </div>
+        <div class="col-sm-3 search pull-right">
+          <span class="glyphicon glyphicon-search"></span>
+          <input type="text" id="search-box" placeholder="Search" />
+        </div>
+      </div>
+      <div class="message-form">
+        <form id="user-input">
+          <div class="col-sm-12">
+            <input
+              id="user-message"
+              type="text"
+              placeholder="Enter your message"
+            />
+          </div>
+          <!-- <div class="col-sm-2">
+                        <input class="btn btn-primary" type="submit" value="send" />
+                    </div> -->
+        </form>
+      </div>
+      <ul id="messages" class="col-sm-12">
+        <li>
+          <div class="user-image">
+            <img
+              src="https://via.placeholder.com/30?__cf_chl_jschl_tk__=2ca4ff89bcb9b6fb5c3549cc6552f2899202ba98-1617495756-0-Ad1FEU6t5m8GO6ulFdmheWyBGvk8TewhujX_koWhmZbbblDlrpufWObF9CXWIAS5U3oINdpG5PPQM6f3VryKONGhF783cbjXijzhkd6W3AETt74TzDFBiLqxExg8KOf9RRkAoo8fqGoOL9aXtxKKz6ba9xmTx2ssyUjMBb-J2KLZIZRjMrROCJS5SXir461-t7G3ZWn-tYcMgWBOSbYWoXppZjuCkOSPg-9LwHhdbG5uTDBFDMFP4gY_mIVMWq0g2TgGtFLRvv3PhBhGRwG2N4-y3T3BRzOZPi6F430LLf1FF1VckAqX-sX-BIFoMRyKvayxuDh2ESWy-H6UQ-I3b_m0lLyeBICTlhDNjL2xuti3_sAcfbHf1FGG9WibVm8HfA"
+            />
+          </div>
+          <div class="user-message">
+            <div class="user-name-time">rbunch <span>1:25 pm</span></div>
+            <div class="message-text">I went running today.</div>
+          </div>
+        </li>
+
+        <li>
+          <div class="user-image">
+            <img
+              src="https://via.placeholder.com/30?__cf_chl_jschl_tk__=2ca4ff89bcb9b6fb5c3549cc6552f2899202ba98-1617495756-0-Ad1FEU6t5m8GO6ulFdmheWyBGvk8TewhujX_koWhmZbbblDlrpufWObF9CXWIAS5U3oINdpG5PPQM6f3VryKONGhF783cbjXijzhkd6W3AETt74TzDFBiLqxExg8KOf9RRkAoo8fqGoOL9aXtxKKz6ba9xmTx2ssyUjMBb-J2KLZIZRjMrROCJS5SXir461-t7G3ZWn-tYcMgWBOSbYWoXppZjuCkOSPg-9LwHhdbG5uTDBFDMFP4gY_mIVMWq0g2TgGtFLRvv3PhBhGRwG2N4-y3T3BRzOZPi6F430LLf1FF1VckAqX-sX-BIFoMRyKvayxuDh2ESWy-H6UQ-I3b_m0lLyeBICTlhDNjL2xuti3_sAcfbHf1FGG9WibVm8HfA"
+            />
+          </div>
+          <div class="user-message">
+            <div class="user-name-time">rbunch <span>2:25 pm</span></div>
+            <div class="message-text">
+              I'm getting my tires changed this afternoon.
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="user-image">
+            <img
+              src="https://via.placeholder.com/30?__cf_chl_jschl_tk__=2ca4ff89bcb9b6fb5c3549cc6552f2899202ba98-1617495756-0-Ad1FEU6t5m8GO6ulFdmheWyBGvk8TewhujX_koWhmZbbblDlrpufWObF9CXWIAS5U3oINdpG5PPQM6f3VryKONGhF783cbjXijzhkd6W3AETt74TzDFBiLqxExg8KOf9RRkAoo8fqGoOL9aXtxKKz6ba9xmTx2ssyUjMBb-J2KLZIZRjMrROCJS5SXir461-t7G3ZWn-tYcMgWBOSbYWoXppZjuCkOSPg-9LwHhdbG5uTDBFDMFP4gY_mIVMWq0g2TgGtFLRvv3PhBhGRwG2N4-y3T3BRzOZPi6F430LLf1FF1VckAqX-sX-BIFoMRyKvayxuDh2ESWy-H6UQ-I3b_m0lLyeBICTlhDNjL2xuti3_sAcfbHf1FGG9WibVm8HfA"
+            />
+          </div>
+          <div class="user-message">
+            <div class="user-name-time">rbunch <span>2:29 pm</span></div>
+            <div class="message-text">I like history.</div>
+          </div>
+        </li>
+        <li>
+          <div class="user-image">
+            <img
+              src="https://via.placeholder.com/30?__cf_chl_jschl_tk__=2ca4ff89bcb9b6fb5c3549cc6552f2899202ba98-1617495756-0-Ad1FEU6t5m8GO6ulFdmheWyBGvk8TewhujX_koWhmZbbblDlrpufWObF9CXWIAS5U3oINdpG5PPQM6f3VryKONGhF783cbjXijzhkd6W3AETt74TzDFBiLqxExg8KOf9RRkAoo8fqGoOL9aXtxKKz6ba9xmTx2ssyUjMBb-J2KLZIZRjMrROCJS5SXir461-t7G3ZWn-tYcMgWBOSbYWoXppZjuCkOSPg-9LwHhdbG5uTDBFDMFP4gY_mIVMWq0g2TgGtFLRvv3PhBhGRwG2N4-y3T3BRzOZPi6F430LLf1FF1VckAqX-sX-BIFoMRyKvayxuDh2ESWy-H6UQ-I3b_m0lLyeBICTlhDNjL2xuti3_sAcfbHf1FGG9WibVm8HfA"
+            />
+          </div>
+          <div class="user-message">
+            <div class="user-name-time">rbunch <span>2:59 pm</span></div>
+            <div class="message-text">What day is tomorrow?.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+<script src="/app.js"></script>

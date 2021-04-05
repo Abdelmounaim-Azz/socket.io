@@ -6,6 +6,13 @@ app.use(express.static(__dirname + "/public"));
 
 const server = app.listen(5000);
 const io = socketio(server);
+const updateUsersInRoom = (endpoint, room) => {
+  io.of(endpoint)
+    .in(room)
+    .clients((error, clients) => {
+      io.of(endpoint).in(room).emit("updateMembers", clients.length);
+    });
+};
 
 io.of("/").on("connection", (socket) => {
   let nsData = namespaces.map((namespace) => {
@@ -21,20 +28,16 @@ namespaces.forEach((namespace) => {
     console.log(`${nsSocket.id} has just joined ${namespace.nsEnpoint}`);
     nsSocket.emit("nsRoom", namespace.rooms);
     nsSocket.on("joinRoom", (roomTojoin, numUsersCb) => {
+      const roomToLeave = Object.keys(nsSocket.rooms)[1];
+      nsSocket.leave(roomToLeave);
+      updateUsersInRoom(namespace.nsEnpoint, roomToLeave);
       nsSocket.join(roomTojoin);
 
       const nsRoom = namespace.rooms.find((room) => {
         return room.roomTitle === roomTojoin;
       });
       nsSocket.emit("historyEvent", nsRoom.history);
-      io.of(namespace.nsEnpoint)
-        .in(roomTojoin)
-        .clients((error, clients) => {
-          console.log(clients.length);
-          io.of(namespace.nsEnpoint)
-            .in(roomTojoin)
-            .emit("updateMembers", clients.length);
-        });
+      updateUsersInRoom(namespace.nsEnpoint, nsRoom.roomTitle);
     });
     nsSocket.on("newMsgToServer", (msg) => {
       const msgObj = {

@@ -10,14 +10,15 @@ var sanitizeHTML = function (content) {
 // const socketDocker = io("http://localhost:5000/docker");
 // const socketLinux = io("http://localhost:5000/linux");
 socket.on("nsHomies", (nsData) => {
-  const nsDiv = document.querySelector(".namespaces");
+  let nsDiv = document.querySelector(".namespaces");
+  nsDiv.innerHTML = "";
   nsData.forEach((el) => {
     nsDiv.innerHTML += `<div class="namespace" ns="${el.endpoint}" ><img class="w-60 h-40" src='${el.img}'/></div>`;
   });
   Array.from(document.getElementsByClassName("namespace")).forEach((el) => {
     el.addEventListener("click", (e) => {
       const nsEndpoint = el.getAttribute("ns");
-      console.log(nsEndpoint);
+      joinNamespace(nsEndpoint);
     });
   });
   joinNamespace("/aws");

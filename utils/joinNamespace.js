@@ -1,7 +1,14 @@
 function joinNamespace(nsEndpoint) {
+  if (nsSocket) {
+    nsSocket.close();
+    document
+      .querySelector("#user-input")
+      .removeEventListener("submit", formSubmission);
+  }
   nsSocket = io(`http://localhost:5000${nsEndpoint}`);
   nsSocket.on("nsRoom", (nsRooms) => {
     let rooms = document.querySelector(".room-list");
+    rooms.innerHTML = "";
     nsRooms.map((room) => {
       let icon = room.privateRoom ? "lock" : "globe";
       rooms.innerHTML += `<li class="room ">
@@ -12,6 +19,7 @@ function joinNamespace(nsEndpoint) {
     Array.from(roomNodes).map((el) => {
       el.addEventListener("click", (e) => {
         console.log("I have been just clicked", e.target.innerText);
+        joinRoom(e.target.innerText);
       });
     });
     const topRoomName = document.querySelector(".room").innerText;
@@ -29,4 +37,9 @@ function joinNamespace(nsEndpoint) {
       const message = document.getElementById("user-message").value;
       nsSocket.emit("newMsgToServer", { data: message });
     });
+}
+function formSubmission(event) {
+  event.preventDefault();
+  const newMessage = document.querySelector("#user-message").value;
+  nsSocket.emit("newMessageToServer", { data: newMessage });
 }

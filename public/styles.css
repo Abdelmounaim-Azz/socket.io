@@ -132,3 +132,8 @@ input {
 .ft-normal {
   font-weight: 500;
 }
+
+.user-li {
+  width: auto;
+  height: auto;
+}

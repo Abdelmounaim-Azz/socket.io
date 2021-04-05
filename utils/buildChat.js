@@ -1,6 +1,6 @@
 function buildChat(msgObj) {
   const FormattedDate = new Date(msgObj.date).toLocaleString();
-  const chatHtml = `<li>
+  const chatHtml = `<li class="user-li">
   <div class="user-image">
     <img
       src="${msgObj.avatar}"

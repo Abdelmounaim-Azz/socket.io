@@ -1,4 +1,5 @@
 const socket = io("http://localhost:5000");
+let nsSocket = "";
 var sanitizeHTML = function (content) {
   var temp = document.createElement("div");
   temp.classList.add("namespace");
@@ -19,25 +20,5 @@ socket.on("nsHomies", (nsData) => {
       console.log(nsEndpoint);
     });
   });
-  const nsSocket = io("http://localhost:5000/aws");
-  nsSocket.on("nsInfo", (nsRooms) => {
-    let rooms = document.querySelector(".room-list");
-    nsRooms.map((room) => {
-      let icon = room.privateRoom ? "lock" : "globe";
-      rooms.innerHTML += `<li class="room">
-      <span class="glyphicon glyphicon-${icon}"></span>${room.roomTitle}
-    </li>`;
-    });
-    let roomNodes = document.getElementsByClassName("room");
-    Array.from(roomNodes).map((el) => {
-      el.addEventListener("click", (e) => {
-        console.log("I have been just clicked", e.target.innerText);
-      });
-    });
-  });
-});
-document.getElementById("user-input").addEventListener("submit", (event) => {
-  event.preventDefault();
-  const message = document.getElementById("user-message").value;
-  socket.emit("newMsgToServer", { data: message });
+  joinNamespace("/aws");
 });

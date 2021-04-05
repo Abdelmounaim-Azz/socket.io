@@ -1,8 +1,6 @@
-// Bring in the room class
 const Namespace = require("../classes/Namespace");
 const Room = require("../classes/Room");
 
-// Set up the namespaces
 let namespaces = [];
 let awsNs = new Namespace(
   0,

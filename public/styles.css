@@ -53,6 +53,10 @@ body {
   color: #282c34;
   font-size: 26px;
 }
+.current-room {
+  color: #282c34;
+  font-size: 26px;
+}
 .curr-room-num-users,
 .search {
   font-size: 14px;
@@ -112,10 +116,19 @@ input {
   display: flex;
   align-items: stretch;
 }
-
+#user-message {
+  color: #000;
+  font-weight: 510;
+}
 .w-60 {
   width: 60px;
 }
 .h-40 {
   height: 40px;
+}
+.ft-bld {
+  font-weight: 600;
+}
+.ft-normal {
+  font-weight: 500;
 }

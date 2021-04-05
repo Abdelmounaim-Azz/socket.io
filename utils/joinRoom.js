@@ -5,14 +5,13 @@ function joinRoom(roomName) {
     ).innerHTML = `${newMembers} <span class="glyphicon glyphicon-user"></span>`;
   });
   nsSocket.on("historyEvent", (history) => {
-    const chatUI = document.getElementById("messages");
-    chatUI.innerHTML = "";
-    history.map((msg) => {
-      const ui = buildChat(msg);
-      const currentMsg = chatUI.innerHTML;
-      chatUI.innerHTML = currentMsg + ui;
+    const messagesUl = document.querySelector("#messages");
+    messagesUl.innerHTML = "";
+    history.forEach((msg) => {
+      const newMsg = buildChat(msg);
+      messagesUl.innerHTML += newMsg;
     });
-    chatUI.scrollTo(0, chatUI.scrollHeight);
+    messagesUl.scrollTo(0, messagesUl.scrollHeight);
   });
   nsSocket.on("updateMembers", (membersCount) => {
     document.querySelector(

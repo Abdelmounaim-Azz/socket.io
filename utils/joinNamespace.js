@@ -33,4 +33,5 @@ const submit = (event) => {
   event.preventDefault();
   const message = document.getElementById("user-message").value;
   nsSocket.emit("newMsgToServer", { data: message });
+  document.getElementById("user-message").value = "";
 };
